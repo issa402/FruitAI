@@ -1,0 +1,223 @@
+# ================================================================================
+# FILE: templates/prompt_templates.yaml
+# ================================================================================
+#
+# 🎓 FAANG-LEVEL LESSON: YAML CONFIG FILES
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# WHAT IS YAML?
+# ─────────────
+# YAML = "YAML Ain't Markup Language"
+# It's a human-readable data format used for configuration files.
+# Used by: Kubernetes, Docker Compose, GitHub Actions, AWS CloudFormation
+#
+# YAML SYNTAX BASICS:
+# ─────────────────────
+# key: value               ← Simple key-value pair
+# key: "multi word value"  ← String with spaces (quotes optional unless special chars)
+#
+# # This is a comment (ignored by Python)
+#
+# list_key:                ← A list
+#   - item one
+#   - item two
+#
+# nested:                  ← Nested dict
+#   sub_key: value
+#   another: value
+#
+# long_string: |           ← Literal block (preserves newlines, perfect for templates)
+#   Line one
+#   Line two
+#   Line three
+#
+# LOADING YAML IN PYTHON:
+# ────────────────────────
+# pip install pyyaml
+#
+# import yaml
+# with open("templates/prompt_templates.yaml", "r") as f:
+#     data = yaml.safe_load(f)
+#
+# # Access: data["flirt_scene"]["template"]
+#
+# VARIABLE PLACEHOLDERS ($variable):
+# ─────────────────────────────────────
+# Python's string.Template uses $variable or ${variable} syntax:
+#   template = Template(data["flirt_scene"]["template"])
+#   filled = template.safe_substitute(speaker="Mango", dialogue="It hits different.")
+#
+# This YAML file is your "prompt config" — all templates in one place.
+# Add new templates here WITHOUT changing any Python code.
+#
+# TODO 1: Add a new template called "elimination_scene" for when a character
+#         gets voted off the island
+# TODO 2: Add a "confession_cam" template where a character talks to the camera
+# TODO 3: Test loading this file with yaml.safe_load() in a scratch script
+# ================================================================================
+
+# ────────────────────────────────────────────────────────────────────────────────
+# SCENE TEMPLATES
+# Each template uses $variable for placeholders filled by PromptManager
+# ────────────────────────────────────────────────────────────────────────────────
+
+flirt_scene:
+  description: "Two characters in a flirty dialogue scene (6 seconds)"
+  type: video
+  template: |
+    Use ONLY the provided image exactly as it is. Do NOT add new characters, props, fruit, or background elements. Do NOT duplicate anything. Keep the same art style, colors, lighting, and composition. Animate the scene for ${duration} seconds in a Love-Island-Fruit-AI style.
+
+    Both characters remain in their exact positions.
+    Their bodies must NOT shift, slide, stand, or change pose.
+    Only natural micro-movements are allowed.
+
+    They look directly at each other the entire time — never at the camera.
+
+    Add subtle, realistic idle animation:
+    - gentle breathing in chest and shoulders
+    - soft blinking for both characters
+    - tiny facial micro-expressions that match the mood
+    - slight head tilts toward each other within original pose
+
+    Environment: ${environment}
+
+    Add soft environment animation:
+    - palm trees sway slightly
+    - ocean waves move gently
+    - warm lighting flickers subtly on bodies
+
+    Dialogue + Delivery Style:
+    For the full ${duration} seconds, ONLY ${speaker_name} speaks.
+    Delivery tone: ${tone} — not exaggerated.
+    Mouth syncs naturally to the words:
+    '${dialogue}'
+
+    ${listener_name} reacts only with subtle micro-expressions: a small smile, a slow blink — nothing more.
+
+    Camera stays 100% locked.
+    No zooming, no panning, no drifting, no rotation.
+
+zipline_host_speaking:
+  description: "Host on zipline, delivering a line to camera"
+  type: video
+  template: |
+    Use ONLY the character shown in the provided image. Do NOT add new characters, props, or background elements. Do NOT duplicate anything. Keep the same art style, colors, lighting, and composition.
+
+    Place the character on a zipline harness, holding the handle naturally.
+    Her body stays stable and centered — no unnatural bending or pose changes.
+    She looks directly at the camera with confident host energy.
+
+    Animate a smooth forward zipline motion across the tropical island:
+    - island background moves behind her with controlled motion blur
+    - palm trees, cliffs, and ocean pass by softly
+    - lighting stays consistent
+    - wind affects her hair, clothing, and accessories naturally
+    - she blinks softly and shows natural micro-expressions
+    - subtle breathing in chest and shoulders
+
+    Camera stays locked on her upper body and face — no zooming, no panning, no rotation.
+
+    Dialogue + Delivery Style (${duration} seconds):
+    ONLY this character speaks.
+    She delivers her line with energetic, charismatic Love-Island-host confidence — bright smile, expressive eyes, playful tone.
+    Her mouth moves naturally and precisely to the words:
+    '${dialogue}'
+    Her delivery should feel bold, fun, and inviting — not exaggerated.
+
+    No other characters appear. No new props appear.
+    Only the zipline motion, wind, and her speaking.
+
+zipline_host_exit:
+  description: "Host exits camera view by ziplining to the right"
+  type: video
+  template: |
+    Use ONLY the character shown in the provided image. Do NOT add new characters, props, or background elements. Do NOT duplicate anything. Keep the same art style, colors, lighting, and composition.
+
+    Place the character on a zipline harness, holding the handle naturally.
+    Her body stays stable and centered — no unnatural bending or pose changes.
+
+    At the very start of the clip, she is already moving toward the right side of the frame on the zipline.
+    She does NOT look at the camera — she looks forward in the direction she is traveling.
+
+    Animate a smooth, continuous zipline motion:
+    - she moves quickly toward the right edge of the frame
+    - island background moves behind her with controlled motion blur
+    - wind affects her hair, clothing, and accessories naturally
+    - subtle breathing and soft blinking
+    - her movement is steady and realistic
+
+    By the ${exit_after_seconds}-second mark, she should be completely out of the camera view, fully past the right border of the frame.
+
+    For the remaining ${remaining_seconds} seconds:
+    - camera stays locked in place
+    - the empty island view remains visible
+    - palm trees sway slightly
+    - ocean moves gently
+    - no new characters or objects appear
+
+    Camera stays completely still the entire time — no zooming, no panning, no tilting, no rotation.
+
+    No dialogue. No subtitles. No voiceover.
+    Only the zipline motion, wind, and the environment.
+
+character_into_background:
+  description: "Place character from Image 1 into the background/scene of Image 2"
+  type: image
+  template: |
+    Use ONLY the character from image ${char_image_num}. Do NOT redesign, redraw, or alter the character in any way. Place this character exactly as they appear into the scene from image ${bg_image_num}. Do NOT add new characters, props, or elements. Do NOT duplicate anything from either image. Match the art style, lighting, and color palette of image ${bg_image_num}. Keep the character's proportions, features, and details identical to image ${char_image_num}. Position: ${position} of frame.
+
+    ${additional_instructions}
+
+combine_two_characters:
+  description: "Combine characters from two separate images into one scene"
+  type: image
+  template: |
+    Combine the characters from BOTH images into a single scene. Use the character from image ${char1_num} exactly as they appear — do NOT redesign them. Use the character from image ${char2_num} exactly as they appear — do NOT redesign them. Scene: ${scene_description}. Art style, lighting, and color palette must match image ${style_ref_num}. Do NOT add new characters, props, or background elements. Do NOT duplicate, morph, or blend character features. Both characters must be clearly distinguishable and faithful to their source images.
+
+video_recreation:
+  description: "Recreate the events of a reference video in Fruit Love Island art style"
+  type: video
+  template: |
+    Use ONLY the character(s) shown in image ${style_image_num}. Do NOT add new characters, props, or elements. Keep the same art style, colors, lighting, and composition from image ${style_image_num}. Animate for ${duration} seconds. Recreate the following events exactly: ${reference_events}. Do NOT improvise or add movements not described. Camera movement should match the original where specified. Every action listed must occur within the ${duration}-second window.
+
+idle_reaction:
+  description: "Character reacts to something with only idle animation, no dialogue"
+  type: video
+  template: |
+    Use ONLY the provided image exactly as it is. Do NOT add new characters, props, fruit, or background elements. Do NOT duplicate anything. Keep the same art style, colors, lighting, and composition. Animate the scene for ${duration} seconds.
+
+    The character remains in their exact position.
+    Their body must NOT shift, slide, stand, or change pose.
+    Only natural micro-movements are allowed.
+
+    Reaction: ${reaction_description}
+
+    Add subtle, realistic idle animation:
+    - gentle breathing in chest and shoulders
+    - soft blinking
+    - tiny facial micro-expressions matching the mood: ${mood}
+    - ${character_specific_idle}
+
+    No dialogue. No subtitles. No voiceover.
+
+    Camera stays 100% locked.
+    No zooming, no panning, no drifting, no rotation.
+
+establishing_shot:
+  description: "Wide shot showing the island environment with no characters speaking"
+  type: video
+  template: |
+    Use ONLY the provided image exactly as it is. Do NOT add new characters, props, or elements. Keep the same art style, colors, lighting, and composition. Animate for ${duration} seconds.
+
+    Environment: ${environment}
+
+    Animate the environment naturally:
+    - palm trees sway gently in the breeze
+    - ocean waves move rhythmically
+    - ${lighting_notes}
+    - ${ambient_details}
+
+    No characters speak. No dialogue. No subtitles.
+
+    Camera stays completely still — no movement of any kind.
+    This is a pure establishing shot.

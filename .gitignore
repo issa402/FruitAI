@@ -1,0 +1,87 @@
+# ================================================================================
+# FILE: .gitignore
+# ================================================================================
+#
+# 🎓 FAANG-LEVEL LESSON: Git and .gitignore
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# WHAT IS .gitignore?
+# ─────────────────────
+# Git tracks changes to files. But SOME files should NEVER be tracked:
+#   - .env files (contain secret API keys!)
+#   - __pycache__ folders (Python bytecode, auto-generated)
+#   - .db files (your local database — everyone has their own)
+#   - node_modules (huge folders of dependencies)
+#   - .DS_Store (Mac OS system files)
+#   - Virtual environment folders (venv, .venv)
+#
+# .gitignore tells Git: "Ignore these files/folders completely."
+#
+# HOW GIT WORKS (Quick Overview):
+# ─────────────────────────────────
+# git init                     ← Start tracking this folder
+# git add .                    ← Stage all changes
+# git commit -m "message"      ← Save a snapshot
+# git push origin main         ← Upload to GitHub
+#
+# RULE #1: NEVER commit .env files. API keys in version control = security breach.
+# Real incident: Dev accidentally committed AWS key → $50,000 bill in 2 hours.
+#
+# TODO: Set up Git for this project:
+#   1. git init (in project root)
+#   2. git add .
+#   3. git commit -m "Initial project structure"
+#   4. Create repo on GitHub → git remote add origin URL → git push
+# ================================================================================
+
+# ── Python ─────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ── Virtual Environments ────────────────────────────────────────────────────────
+venv/
+.venv/
+ENV/
+env/
+.env.local  # Keep .env.example but IGNORE the real .env
+.env
+
+# ── Database ─────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Exports & Generated Files ─────────────────────────────────────────────────
+exports/
+backups/
+
+# ── Test Cache ───────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── OS Files ─────────────────────────────────────────────────────────────────
+.DS_Store           # Mac
+Thumbs.db           # Windows
+desktop.ini         # Windows
+
+# ── IDE Files ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ── Large Asset Files (keep these out of Git — use cloud storage instead) ────
+assets/frames/*.png
+assets/frames/*.jpg
+assets/processed/*.png
+assets/processed/*.jpg
+assets/scenes/**/*.mp4
+assets/scenes/**/*.mov
+assets/scenes/**/*.webm

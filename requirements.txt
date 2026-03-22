@@ -1,0 +1,81 @@
+# ================================================================================
+# FILE: requirements.txt
+# ================================================================================
+#
+# 🎓 FAANG-LEVEL LESSON: DEPENDENCY MANAGEMENT
+# ───────────────────────────────────────────────────────────────────────────────
+#
+# WHAT IS requirements.txt?
+# ──────────────────────────
+# A list of every Python package your project needs.
+# This file allows anyone to recreate your exact environment with one command:
+#
+#   pip install -r requirements.txt
+#   # Installs EVERYTHING at the EXACT versions you tested with
+#
+# VERSION PINNING (== vs >= vs ~=):
+# ──────────────────────────────────
+# package==1.2.3       ← EXACT version only. Safest for production.
+# package>=1.2.0       ← This version OR NEWER. Risk: breaking changes in new versions.
+# package~=1.2.0       ← Compatible release: >=1.2.0, <1.3.0. Safe middle ground.
+# package              ← ANY version. Never do this in production.
+#
+# FAANG practice: Pin EXACT versions in production, ~= in shared libraries.
+#
+# HOW TO INSTALL:
+# ─────────────────
+# 1. Create virtual environment: python -m venv venv
+# 2. Activate it:
+#    Windows: venv\Scripts\activate
+#    Mac/Lin: source venv/bin/activate
+# 3. Install: pip install -r requirements.txt
+#
+# VIRTUAL ENVIRONMENT: WHY?
+# ──────────────────────────
+# Each project gets its OWN Python packages.
+# Without venv: ALL projects share the same packages → version conflicts.
+# With venv: Project A uses pandas 1.0, Project B uses pandas 2.0. No conflict.
+#
+# TODO: Set up your virtual environment:
+#   python -m venv venv
+#   venv\Scripts\activate      (Windows)
+#   pip install -r requirements.txt
+#   python main.py             (start the app)
+# ================================================================================
+
+# ── CORE (No installation — built into Python) ─────────────────────────────────
+# sqlite3      ← Database (built-in)
+# pathlib      ← File path handling (built-in)
+# logging      ← Logging system (built-in)
+# json         ← JSON serialization (built-in)
+# dataclasses  ← @dataclass decorator (built-in Python 3.7+)
+# argparse     ← CLI argument parsing (built-in)
+
+# ── CONFIG & ENVIRONMENT ────────────────────────────────────────────────────────
+python-dotenv~=1.0.0        # Load .env files into environment variables
+
+# ── DATA / CONFIG FILES ─────────────────────────────────────────────────────────
+PyYAML~=6.0.1               # Load YAML template files (prompt_templates.yaml)
+
+# ── IMAGE PROCESSING ─────────────────────────────────────────────────────────────
+Pillow~=10.3.0              # Image open/save/crop/resize/combine (THE image library)
+
+# ── VIDEO PROCESSING ─────────────────────────────────────────────────────────────
+opencv-python~=4.9.0.80     # Video frame extraction and image manipulation
+# ffmpeg-python~=0.2.0      # FFmpeg Python bindings (uncomment when needed)
+
+# ── AI APIS (uncomment when you get API keys) ─────────────────────────────────────
+# openai~=1.30.0             # OpenAI (ChatGPT, GPT-4)
+# google-generativeai~=0.7.0 # Google Gemini
+
+# ── CLIPBOARD ────────────────────────────────────────────────────────────────────
+pyperclip~=1.9.0            # Auto-copy prompts to clipboard
+
+# ── TESTING ──────────────────────────────────────────────────────────────────────
+pytest~=8.2.0               # Test runner
+pytest-cov~=5.0.0           # Test coverage reports
+
+# ── OPTIONAL (uncomment to enable advanced features) ──────────────────────────────
+# piexif~=1.1.3               # Embed prompts in image EXIF metadata
+# thefuzz~=0.22.1             # Fuzzy search for prompt library
+# tenacity~=8.3.0             # Retry logic for API calls

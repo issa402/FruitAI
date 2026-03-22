@@ -1,0 +1,2 @@
+# Your saved prompt library lives here.
+# Every prompt you generate gets a JSON file: {project}_{scene}_{type}_{timestamp}.json
